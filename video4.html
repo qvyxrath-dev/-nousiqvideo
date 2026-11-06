@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Метод мест</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#0b1220;overflow:hidden;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#fff;-webkit-user-select:none;user-select:none}
+#stage{position:fixed;inset:0}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10vh 8vw;opacity:0;transition:opacity .5s ease}
+.scene.on{opacity:1}
+.label{position:absolute;top:7vh;left:0;right:0;font-size:4vw;font-weight:700;color:#7fd4a0}
+.mid{font-size:7vw;font-weight:700;line-height:1.35}
+.big{font-size:12vw;font-weight:800;color:#7fd4a0;line-height:1.1}
+.small{font-size:4.6vw;line-height:1.45;color:#9aa6c2;margin-top:4vh}
+.list{font-size:5.6vw;line-height:1.7;color:#e6ecf8;text-align:left;display:inline-block}
+#start{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:64vw;height:9vh;border:0;border-radius:999px;background:#14453b;color:#fff;font-size:5vw;font-weight:700;cursor:pointer;z-index:5}
+#start.gone{display:none}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="scene" id="s1">
+    <div class="mid">Как запомнить 10 слов без зубрёжки?</div>
+  </div>
+  <div class="scene" id="s2">
+    <div class="label">Метод мест</div>
+    <div class="mid">Представь знакомую комнату и разложи слова по предметам</div>
+    <div class="small">Например: хлеб на диване, молоко у окна</div>
+  </div>
+  <div class="scene" id="s3">
+    <div class="label">Почему работает</div>
+    <div class="mid">Мозг лучше запоминает образы и места, чем отдельные слова</div>
+    <div class="small">Этим приёмом пользовались ораторы Древней Греции</div>
+  </div>
+  <div class="scene" id="s4">
+    <div class="label">NOUS. Логика и мышление</div>
+    <div class="mid">Больше информации в нашем Telegram-канале</div>
+    <div class="small">Ссылка в профиле 👇</div>
+  </div>
+</div>
+<button id="start">Старт</button>
+<script>
+const el = id => document.getElementById(id);
+const wait = ms => new Promise(r => setTimeout(r, ms));
+const scenes = ['s1','s2','s3','s4'];
+function hideAll(){ scenes.forEach(id => el(id).classList.remove('on')); }
+function show(id){ el(id).classList.add('on'); }
+async function run(){
+  hideAll();
+  el('start').classList.add('gone');
+  show('s1'); await wait(4000);
+  hideAll(); show('s2'); await wait(5000);
+  hideAll(); show('s3'); await wait(5000);
+  hideAll(); show('s4'); await wait(4000);
+  el('start').textContent = 'Ещё раз';
+  el('start').classList.remove('gone');
+}
+el('start').onclick = run;
+</script>
+</body>
+</html>
